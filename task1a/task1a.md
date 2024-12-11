@@ -198,7 +198,7 @@ Here is the partial output of node sr-p001:
 
 ```bash
 RP/0/RP0/CPU0:sr-p001#show ip route
-Tue Nov 19 19:26:00.133 UTC
+Wed Dec 11 23:10:51.424 UTC
 
 Codes: C - connected, S - static, R - RIP, B - BGP, (>) - Diversion path
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -212,21 +212,24 @@ Codes: C - connected, S - static, R - RIP, B - BGP, (>) - Diversion path
 
 Gateway of last resort is not set
 
-L    1.1.1.1/32 is directly connected, 00:48:55, Loopback0
-i L1 2.2.2.2/32 [115/20] via 10.1.1.2, 00:19:48, GigabitEthernet0/0/0/3
-i L1 3.3.3.3/32 [115/20] via 10.1.11.2, 00:19:48, GigabitEthernet0/0/0/0
-i L1 4.4.4.4/32 [115/20] via 10.1.12.2, 00:19:46, GigabitEthernet0/0/0/1
-C    10.1.1.0/30 is directly connected, 00:48:07, GigabitEthernet0/0/0/3
-L    10.1.1.1/32 is directly connected, 00:48:07, GigabitEthernet0/0/0/3
-C    10.1.11.0/30 is directly connected, 00:48:07, GigabitEthernet0/0/0/0
-L    10.1.11.1/32 is directly connected, 00:48:07, GigabitEthernet0/0/0/0
-C    10.1.12.0/30 is directly connected, 00:48:07, GigabitEthernet0/0/0/1
-L    10.1.12.1/32 is directly connected, 00:48:07, GigabitEthernet0/0/0/1
-i L1 10.1.21.0/30 [115/20] via 10.1.11.2, 00:19:48, GigabitEthernet0/0/0/0
-                  [115/20] via 10.1.1.2, 00:19:48, GigabitEthernet0/0/0/3
-i L1 10.1.22.0/30 [115/20] via 10.1.1.2, 00:19:46, GigabitEthernet0/0/0/3
-                  [115/20] via 10.1.12.2, 00:19:46, GigabitEthernet0/0/0/1
-RP/0/RP0/CPU0:sr-p001#
+L    1.1.1.1/32 is directly connected, 06:36:43, Loopback0
+i L2 2.2.2.2/32 [115/30] via 10.1.11.2, 00:22:38, GigabitEthernet0/0/0/0 (!)
+                [115/20] via 10.1.1.2, 00:22:38, GigabitEthernet0/0/0/3
+i L2 3.3.3.3/32 [115/20] via 10.1.11.2, 00:30:12, GigabitEthernet0/0/0/0
+                [115/30] via 10.1.1.2, 00:30:12, GigabitEthernet0/0/0/3 (!)
+i L2 4.4.4.4/32 [115/30] via 10.1.1.2, 00:22:38, GigabitEthernet0/0/0/3 (!)
+                [115/20] via 10.1.12.2, 00:22:38, GigabitEthernet0/0/0/1
+C    10.1.1.0/30 is directly connected, 06:35:58, GigabitEthernet0/0/0/3
+L    10.1.1.1/32 is directly connected, 06:35:58, GigabitEthernet0/0/0/3
+C    10.1.11.0/30 is directly connected, 06:35:58, GigabitEthernet0/0/0/0
+L    10.1.11.1/32 is directly connected, 06:35:58, GigabitEthernet0/0/0/0
+C    10.1.12.0/30 is directly connected, 06:35:58, GigabitEthernet0/0/0/1
+L    10.1.12.1/32 is directly connected, 06:35:58, GigabitEthernet0/0/0/1
+i L2 10.1.21.0/30 [115/20] via 10.1.11.2, 00:22:38, GigabitEthernet0/0/0/0
+                  [115/20] via 10.1.1.2, 00:22:38, GigabitEthernet0/0/0/3
+i L2 10.1.22.0/30 [115/20] via 10.1.1.2, 00:22:38, GigabitEthernet0/0/0/3
+                  [115/20] via 10.1.12.2, 00:22:38, GigabitEthernet0/0/0/1
+
 ```
 > [!IMPORTANT]
 > the ‘(!)’ at the end of some of the loopback routes.  These are the routes protected by FRR.  These routes are installed in the FIB as a backup route in the event the primary path fails.  With these backup routes, the router does not need to wait for ISIS to reconverge before forwarding packets again.
@@ -240,29 +243,32 @@ On each router, inspect the MPLS forwarding table:
 
 
 ```bash
-RP/0/RP0/CPU0:sr-p001#show mpls forwarding 
-Tue Nov 19 19:26:46.626 UTC
-Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes       
-Label  Label       or ID              Interface                    Switched    
+RP/0/RP0/CPU0:sr-p001# **RP/0/RP0/CPU0:sr-p001#show mpls forwarding
+Wed Dec 11 23:09:27.009 UTC
+Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes
+Label  Label       or ID              Interface                    Switched
 ------ ----------- ------------------ ------------ --------------- ------------
-24000  Pop         SR Adj (idx 0)     Gi0/0/0/3    10.1.1.2        0           
-24001  Pop         SR Adj (idx 2)     Gi0/0/0/3    10.1.1.2        0           
-24002  Pop         SR Adj (idx 0)     Gi0/0/0/0    10.1.11.2       0           
-24003  Pop         SR Adj (idx 2)     Gi0/0/0/0    10.1.11.2       0           
-24004  Pop         SR Adj (idx 0)     Gi0/0/0/1    10.1.12.2       0           
-24005  Pop         SR Adj (idx 2)     Gi0/0/0/1    10.1.12.2       0           
-RP/0/RP0/CPU0:sr-p001# 
-```
-
-In the example output from sr-p001, we see the dynamic adjacency-sid labels assigned to the interfaces that are participating in MPLS forwarding below.  These dynamic labels are in the **24000** and up range. We enabled all interfaces for MPLS forwarding when we configured ‘segment-routing forwarding mpls’ at the global ISIS level then configured all interfaces in the area 0 sub-context.  We also see some adjacencies as protected with the ‘(!)’.  **These are built by FRR TI-LFA**.
-
-```
 16002  Pop         SR Pfx (idx 2)     Gi0/0/0/3    10.1.1.2        0
        16002       SR Pfx (idx 2)     Gi0/0/0/0    10.1.11.2       0            (!)
 16003  Pop         SR Pfx (idx 3)     Gi0/0/0/0    10.1.11.2       0
        16003       SR Pfx (idx 3)     Gi0/0/0/3    10.1.1.2        0            (!)
 16004  Pop         SR Pfx (idx 4)     Gi0/0/0/1    10.1.12.2       0
        16004       SR Pfx (idx 4)     Gi0/0/0/3    10.1.1.2        0            (!)
+
+
+```
+
+In the example output from sr-p001, we see the dynamic adjacency-sid labels assigned to the interfaces that are participating in MPLS forwarding below.  These dynamic labels are in the **24000** and up range. We enabled all interfaces for MPLS forwarding when we configured ‘segment-routing forwarding mpls’ at the global ISIS level then configured all interfaces in the area 0 sub-context.  We also see some adjacencies as protected with the ‘(!)’.  **These are built by FRR TI-LFA**.
+
+```
+24006  Pop         SR Adj (idx 1)     Gi0/0/0/1    10.1.12.2       0
+       16004       SR Adj (idx 1)     Gi0/0/0/3    10.1.1.2        0            (!)
+24007  Pop         SR Adj (idx 3)     Gi0/0/0/1    10.1.12.2       0
+24008  Pop         SR Adj (idx 1)     Gi0/0/0/3    10.1.1.2        0
+       16002       SR Adj (idx 1)     Gi0/0/0/0    10.1.11.2       0            (!)
+24009  Pop         SR Adj (idx 3)     Gi0/0/0/3    10.1.1.2        0
+24010  Pop         SR Adj (idx 1)     Gi0/0/0/0    10.1.11.2       0
+       16003       SR Adj (idx 1)     Gi0/0/0/3    10.1.1.2        0            (!)
 ```
 
 In addition to the adjacency-sids, we also see the prefix-sids that we configured for interface loopback 0 in ISIS. These prefix-sids are highlighted at the top of the output.  You will see back up paths here as well with outgoing labels to complete the backup LSP.
