@@ -309,10 +309,10 @@ In addition to the adjacency-sids, we also see the prefix-sids that we configure
 
  </pre></code></details> <br>
 
-Let's investigate the OSPF SID databaset to ensure we can see our neighbors prefix-sid's for their loopbacks 
+Let's investigate the ISIS SID database to ensure we can see our neighbors prefix-sid's for their loopbacks 
  
  ```bash
- RP/0/RP0/CPU0:sr-p001#show ospf sid-database
+ RP/0/RP0/CPU0:sr-p001#show isis database verbose
  
  SID Database for ospf 1 with ID 1.1.1.1
  
