@@ -300,7 +300,7 @@ RP/0/RP0/CPU0:sr-p001#
 
  </pre></code></details> <br>
 
-Let's investigate the ISIS SID databaset to ensure we can see our neighbors prefix-sid's for their loopbacks 
+Let's investigate the ISIS SID database to ensure we can see our neighbors prefix-sid's for their loopbacks 
  
  ```bash
 RP/0/RP0/CPU0:sr-p002#show isis segment-routing label table
