@@ -298,16 +298,17 @@ RP/0/RP0/CPU0:sr-p001#
 Let's investigate the ISIS SID databaset to ensure we can see our neighbors prefix-sid's for their loopbacks 
  
  ```bash
- RP/0/RP0/CPU0:sr-p001#show ospf sid-database
- 
- SID Database for ospf 1 with ID 1.1.1.1
- 
- SID          Prefix/Mask
- --------     ------------------
- 1            1.1.1.1/32               (L)
- 2            2.2.2.2/32
- 3            3.3.3.3/32
- 4            4.4.4.4/32 
+RP/0/RP0/CPU0:sr-p002#show isis segment-routing label table
+Wed Dec 11 22:59:26.784 UTC
+
+IS-IS CORE IS Label Table
+Label         Prefix                   Interface
+----------    ----------------         ---------
+16001         1.1.1.1/32
+16002         2.2.2.2/32               Loopback0
+16003         3.3.3.3/32
+16004         4.4.4.4/32
+
 ```
 
  As you can see from the output above, all SIDs we configured on all the routers are present in the ISIS sid-database. You should see similar output on all routers.
