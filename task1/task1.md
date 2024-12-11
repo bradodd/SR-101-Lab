@@ -324,5 +324,5 @@ Let's investigate the ISIS SID database to ensure we can see our neighbors prefi
  4            4.4.4.4/32 
 ```
 
- As you can see from the output above, all SIDs we configured on all the routers are present in the OSPF sid-database. You should see similar output on all routers.
+ As you can see from the output above, all SIDs we configured on all the routers are present in the ISIS sid-database. You should see similar output on all routers.
  
