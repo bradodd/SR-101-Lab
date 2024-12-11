@@ -48,9 +48,8 @@ Sr-pe002: net 49.0000.0000.0004.00
 (config-isis)#interface gigabit0/0/0/x
 (config-isis-if)#point-to-point
 (config-isis-if-af)#address-family ipv4 unicast
+(config-isis-if-af)#fast-reroute per-prefix 
 (config-isis-if-af)#fast-reroute per-prefix ti-lfa enable
-(config-isis-if-af)#fast-reroute per-prefix level 2
-
 ```
 
 > [!IMPORTANT] 
