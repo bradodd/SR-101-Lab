@@ -120,10 +120,11 @@ Sr-pe002    | 16004
 > Ensure that you are under the ISIS process, and configuring the loopback interfaces for the prefix-SID. 
 
 ```bash
-(config-isis-af)#interface loop0
-(config-isis-af-if)#prefix-sid absolute xxxxx
-(config-isis-af-if)#commit
-(config-isis-af-if)#end
+(config-isis)#interface loop0
+(config-isis-if)#address-family ipv4 unicast
+(config-isis-if-af)#prefix-sid absolute xxxxx
+(config-isis-if-af)#commit
+(config-isis-if-af)#end
 ```
 <details><summary><font size=4> Expand for prefix-sid details </summary><pre><code></font>
   This is like an identification label for the node.  In practice, you may use either an index or absolute value for the prefix-sid.  An index adds the value of the configured index to the starting value of the Global Segment range.  By default, the range starts at 16000 and goes to 23999, whereas an absolute value is the actual value of the label you wish to configure.   
