@@ -104,24 +104,7 @@ GigabitEthernet0/0/0/2         unassigned      Shutdown        Down     default
 GigabitEthernet0/0/0/3         10.1.1.1        Up              Up       default
 </pre></code></details> <br>
 
-2. Configure isis on each interface
-
-The interfaces with ip addresses in the default vrf will need to be added to ISIS with a unique net.  Proceed by adding the interfaces on each router to ISIS CORE and commit your changes.     
-
-Here is the configuration for sr-p001:
-```bash
-(config-isis)#area 0
-(config-isis-ar)#int g0/0/0/0
-(config-isis-ar-if)#exit
-(config-isis-ar)#int g0/0/0/1
-(config-isis-ar-if)#exit
-(config-isis-ar)#int g0/0/0/3
-(config-isis-ar-if)#exit
-(config-isis-ar)#int lo0
-(config-isis-ar)#commit
-```
-
-3. Add prefix-SID to each router's loopback 
+2. Add prefix-SID to each router's loopback 
 
 Here are the prefix-sid absolute values for each node.  Configure these values, commit your changes, and exit configuration mode:
 
@@ -137,9 +120,10 @@ Sr-pe002    | 16004
 > Ensure that you are under the ISIS process, and configuring the loopback interfaces for the prefix-SID. 
 
 ```bash
-(config-isis-ar-if)#prefix-sid absolute xxxxx
-(config-isis-ar-if)#commit
-(config-isis-ar-if)#end
+(config-isis-af)#interface loop0
+(config-isis-af-if)#prefix-sid absolute xxxxx
+(config-isis-af-if)#commit
+(config-isis-af-if)#end
 ```
 <details><summary><font size=4> Expand for prefix-sid details </summary><pre><code></font>
   This is like an identification label for the node.  In practice, you may use either an index or absolute value for the prefix-sid.  An index adds the value of the configured index to the starting value of the Global Segment range.  By default, the range starts at 16000 and goes to 23999, whereas an absolute value is the actual value of the label you wish to configure.   
