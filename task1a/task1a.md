@@ -29,7 +29,7 @@ Sr-pe001: net 49.0000.0000.0003.00
 Sr-pe002: net 49.0000.0000.0004.00
 
 (conf)#router isis CORE
-(conf-isis)#is-type level-1
+(conf-isis)#is-type level-2
 (conf-isis)#net 49.0000.0000.000x.00
 ```
 
