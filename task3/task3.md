@@ -1,4 +1,4 @@
-# Configure EVPN Servivces 
+# Configure EVPN Services 
 
 Some key terms for this task:
 ```angular2html
@@ -39,7 +39,7 @@ int gi0/0/0/4
 no shut
 exit
 int gi0/0/0/4.1 l2transport
-encapuslation untagged
+encapsulation untagged
 no shut
 commit
 ```
