@@ -80,8 +80,8 @@ Sr-p002: 2.2.2.2/32
 Sr-pe001: 3.3.3.3/32
 Sr-pe002: 4.4.4.4/32  
 
-(config-isis)#
-(config-isis)#int loopback0
+(config)#
+(config)#int loopback0
 (config-if)#ip address x.x.x.x/32 
 !see list above for ip address for each router
 Return to isis configuration mode and commit changes made thus far.
